@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">OnePersonChat</string>
+    <string name="assignment_title">こんなアプリが欲しい！</string>
+    <string name="assignment_image_alt">アプリイメージ</string>
+    <string name="assignment_body">※ デザインは上のイメージに合わせる必要はありません。また実装時にこのプロジェクトを使用しなくても構いません。</string>
+</resources>

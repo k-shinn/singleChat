@@ -10,12 +10,13 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".TimeLineActivity">
+        tools:context=".timeline.TimeLineActivity">
 
         <android.support.v7.widget.AppCompatEditText
             android:id="@+id/inputText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:hint="@string/input_message"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/sendButton"
             app:layout_constraintHorizontal_bias="0.0"
@@ -32,12 +33,14 @@
             app:srcCompat="@android:drawable/ic_menu_send" />
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/timelineView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/inputText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

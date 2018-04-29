@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.tunnel.assignment.onepersonchat.databinding.ActivityMainBinding
+import com.tunnel.assignment.onepersonchat.timeline.TimeLineActivity
 
 class MainActivity : AppCompatActivity() {
 

@@ -5,4 +5,5 @@
     <string name="assignment_body">※ デザインは上のイメージに合わせる必要はありません。また実装時にこのプロジェクトを使用しなくても構いません。</string>
     <string name="start_app">アプリを開始します</string>
     <string name="send_button_desc">メッセージ送信</string>
+    <string name="input_message">input message</string>
 </resources>

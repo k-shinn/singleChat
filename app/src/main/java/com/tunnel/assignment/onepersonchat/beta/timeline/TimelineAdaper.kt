@@ -1,4 +1,4 @@
-package com.tunnel.assignment.onepersonchat.timeline
+package com.tunnel.assignment.onepersonchat.beta.timeline
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

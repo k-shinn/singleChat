@@ -1,4 +1,4 @@
-package com.tunnel.assignment.onepersonchat.timeline
+package com.tunnel.assignment.onepersonchat.beta.timeline
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData

@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.tunnel.assignment.onepersonchat.beta.timeline.TimeLineActivity" />
+        <activity android:name=".chat.ChatActivity" />
     </application>
 
 </manifest>

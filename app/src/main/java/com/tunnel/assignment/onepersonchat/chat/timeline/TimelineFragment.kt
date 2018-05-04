@@ -32,10 +32,6 @@ class TimelineFragment : Fragment() {
 
         val user = arguments?.getSerializable(USER) is User
 
-//        chatViewModel = ViewModelProviders.of(this).get(ChatViewModel::class.java)
-//        chatViewModel.getStatemensts().observe()
-
-
         return binding.root
     }
 
@@ -56,7 +52,7 @@ class TimelineFragment : Fragment() {
 
     fun setViewModel(chatViewModel: ChatViewModel) {
         this.chatViewModel = chatViewModel
-        this.chatViewModel.getStatemensts().observe(this, Observer { it ->
+        this.chatViewModel.getStatements().observe(this, Observer { it ->
             it?.let {
                 timelineAdapter.list.add(it)
                 timelineAdapter.notifyDataSetChanged()

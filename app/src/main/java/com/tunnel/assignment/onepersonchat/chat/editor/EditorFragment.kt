@@ -8,16 +8,21 @@ import android.view.View
 import android.view.ViewGroup
 import com.tunnel.assignment.onepersonchat.R
 import com.tunnel.assignment.onepersonchat.chat.ChatViewModel
+import com.tunnel.assignment.onepersonchat.chat.model.Statement
 import com.tunnel.assignment.onepersonchat.chat.model.User
 import com.tunnel.assignment.onepersonchat.databinding.FragmentEditorBinding
+import java.util.*
 
 class EditorFragment : Fragment() {
 
     lateinit var chatViewModel: ChatViewModel
     lateinit var binding: FragmentEditorBinding
+    lateinit var user: User
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_editor, container, false)
+
+        user = arguments?.getSerializable(EditorFragment.USER) as User
 
         val editWatcher = EditWatcher(object : EditWatcher.ChangeListener {
             override fun onChanged(isExist: Boolean) {
@@ -27,8 +32,9 @@ class EditorFragment : Fragment() {
         binding.editor.addTextChangedListener(editWatcher)
         binding.sendButton.setOnClickListener {
             val editable = binding.editor.text
-            val string = editable.toString()
-            chatViewModel.sendMessage(string)
+            val message = editable.toString()
+            val newStatement = Statement(message, Calendar.getInstance(), user)
+            chatViewModel.sendMessage(newStatement)
             editable.clear()
         }
 
@@ -39,7 +45,6 @@ class EditorFragment : Fragment() {
     fun setViewModel(chatViewModel: ChatViewModel) {
         this.chatViewModel = chatViewModel
     }
-
 
     companion object {
         const val USER = "USER"

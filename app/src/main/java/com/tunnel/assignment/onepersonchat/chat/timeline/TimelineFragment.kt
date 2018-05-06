@@ -10,8 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.tunnel.assignment.onepersonchat.R
 import com.tunnel.assignment.onepersonchat.chat.ChatViewModel
-import com.tunnel.assignment.onepersonchat.chat.model.Statement
-import com.tunnel.assignment.onepersonchat.chat.model.User
+import com.tunnel.assignment.onepersonchat.chat.model.orma.Statement
+import com.tunnel.assignment.onepersonchat.chat.model.orma.User
 import com.tunnel.assignment.onepersonchat.chat.timeline.recyclerview.TimelineAdapter
 import com.tunnel.assignment.onepersonchat.databinding.FragmentTimelineBinding
 import java.util.*
@@ -24,13 +24,14 @@ class TimelineFragment : Fragment() {
 
     lateinit var timelineAdapter: TimelineAdapter
 
+    private lateinit var currentUser: User
+
     var list: ArrayList<Statement> = ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-//        return super.onCreateView(inflater, container, savedInstanceState)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_timeline, container, false)
 
-        val user = arguments?.getSerializable(USER) is User
+        currentUser = arguments?.getSerializable(USER) as User
 
         return binding.root
     }
@@ -43,8 +44,8 @@ class TimelineFragment : Fragment() {
 
 
     private fun initRecyclerView() {
-        list.add(Statement("first", Calendar.getInstance(), User("test", "test")))
-        timelineAdapter = TimelineAdapter(list)
+//        list.add(Statement("first", Calendar.getInstance(), User("test", "test")))
+        timelineAdapter = TimelineAdapter(list, currentUser)
         binding.timeline.setHasFixedSize(true)
         binding.timeline.layoutManager = LinearLayoutManager(context)
         binding.timeline.adapter = timelineAdapter

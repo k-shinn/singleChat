@@ -6,9 +6,9 @@ import android.support.v7.app.AppCompatActivity
 import com.tunnel.assignment.onepersonchat.R
 import com.tunnel.assignment.onepersonchat.chat.editor.EditorFragment
 import com.tunnel.assignment.onepersonchat.chat.editor.EditorNavigator
-import com.tunnel.assignment.onepersonchat.chat.model.User
+import com.tunnel.assignment.onepersonchat.chat.model.orma.OrmaDB
+import com.tunnel.assignment.onepersonchat.chat.model.orma.User
 import com.tunnel.assignment.onepersonchat.chat.timeline.TimelineFragment
-import java.util.*
 
 class ChatActivity : AppCompatActivity(), EditorNavigator {
 
@@ -20,8 +20,9 @@ class ChatActivity : AppCompatActivity(), EditorNavigator {
         setContentView(R.layout.activity_chat)
 
         // ユーザ設定がなければゲスト登録
-        val user = intent.getSerializableExtra("user")
-        currentUser = user.let { User(UUID.randomUUID().toString(), "guest") }
+//        val currentUser = intent.getSerializableExtra("currentUser")
+        // ユーザ登録口を作るまで毎回別ユーザを作っておく
+        currentUser = createUser(User(0, "instantUser"))
 
         chatViewModel = ViewModelProviders.of(this).get(ChatViewModel::class.java)
         chatViewModel.setNavigator(this)
@@ -34,7 +35,11 @@ class ChatActivity : AppCompatActivity(), EditorNavigator {
         transaction.replace(R.id.timeline, timelineFragment)
         transaction.replace(R.id.editor, editorFragment)
         transaction.commit()
+    }
 
+    private fun createUser(user: User): User {
+        val id = OrmaDB.orma.insertIntoUser(user)
+        return OrmaDB.orma.selectFromUser().idEq(id).get(0)
     }
 
     override fun sendMessage(message: String) {

@@ -10,6 +10,7 @@ import com.tunnel.assignment.onepersonchat.chat.model.orma.Statement
 import com.tunnel.assignment.onepersonchat.chat.model.orma.User
 import com.tunnel.assignment.onepersonchat.databinding.TimelineMyRowBinding
 import com.tunnel.assignment.onepersonchat.databinding.TimelineRowBinding
+import java.text.SimpleDateFormat
 import java.util.*
 
 class TimelineAdapter(var list: ArrayList<Statement>, var user: User) : RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder>() {
@@ -48,14 +49,20 @@ class TimelineAdapter(var list: ArrayList<Statement>, var user: User) : Recycler
     override fun onBindViewHolder(holder: TimelineViewHolder, position: Int) {
         if (holder.itemViewType == Companion.MY_VIEW) {
             val rowBinding = holder.binding as TimelineMyRowBinding
-            rowBinding.date.text = "12:59"
+            val date = convertDate(list[position].dateLong)
+            rowBinding.date.text = date
             rowBinding.text.text = list[position].message
         } else {
             val rowBinding = holder.binding as TimelineRowBinding
-            rowBinding.date.text = "12:00"
+            val date = convertDate(list[position].dateLong)
+            rowBinding.date.text = date
             rowBinding.text.text = list[position].message
-
         }
+    }
+
+    private fun convertDate(dateLong: Long): String? {
+        val dateFormat = SimpleDateFormat("HH:mm", Locale.JAPAN)
+        return dateFormat.format(Date(dateLong))
     }
 
 //    override fun onBindViewHolder(holder: ViewHolder, position: Int) {

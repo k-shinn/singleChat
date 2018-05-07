@@ -49,6 +49,9 @@ class TimelineFragment : Fragment() {
         binding.timeline.setHasFixedSize(true)
         binding.timeline.layoutManager = LinearLayoutManager(context)
         binding.timeline.adapter = timelineAdapter
+
+        val savedData = this.chatViewModel.getSavedData()
+        timelineAdapter.list.addAll(savedData)
     }
 
     fun setViewModel(chatViewModel: ChatViewModel) {

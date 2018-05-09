@@ -2,11 +2,10 @@ package com.tunnel.assignment.onepersonchat
 
 import android.content.Intent
 import android.databinding.DataBindingUtil
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import com.tunnel.assignment.onepersonchat.databinding.ActivityMainBinding
-import com.tunnel.assignment.onepersonchat.beta.timeline.TimeLineActivity
+import android.support.v7.app.AppCompatActivity
 import com.tunnel.assignment.onepersonchat.chat.ChatActivity
+import com.tunnel.assignment.onepersonchat.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 

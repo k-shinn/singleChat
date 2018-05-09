@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import com.tunnel.assignment.onepersonchat.R
 import com.tunnel.assignment.onepersonchat.chat.ChatViewModel
 import com.tunnel.assignment.onepersonchat.chat.model.orma.Statement
-import com.tunnel.assignment.onepersonchat.chat.model.orma.User
 import com.tunnel.assignment.onepersonchat.chat.timeline.recyclerview.TimelineAdapter
 import com.tunnel.assignment.onepersonchat.databinding.FragmentTimelineBinding
 import java.util.*
@@ -20,13 +19,13 @@ class TimelineFragment : Fragment() {
 
     private lateinit var binding: FragmentTimelineBinding
     private lateinit var chatViewModel: ChatViewModel
-    private lateinit var currentUser: User
     private lateinit var timelineAdapter: TimelineAdapter
     private var list: ArrayList<Statement> = ArrayList()
+    private var currentUserId: Long = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_timeline, container, false)
-        currentUser = arguments?.getSerializable(USER) as User
+        currentUserId = arguments?.getLong(USER) as Long
         return binding.root
     }
 
@@ -36,7 +35,7 @@ class TimelineFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        timelineAdapter = TimelineAdapter(list, currentUser)
+        timelineAdapter = TimelineAdapter(list, currentUserId)
         binding.timeline.setHasFixedSize(true)
         binding.timeline.layoutManager = LinearLayoutManager(context)
         binding.timeline.adapter = timelineAdapter
@@ -57,9 +56,9 @@ class TimelineFragment : Fragment() {
 
     companion object {
         const val USER = "USER"
-        fun createInstance(currentUser: User) = TimelineFragment().apply {
+        fun createInstance(userId: Long) = TimelineFragment().apply {
             arguments = Bundle().apply {
-                putSerializable(USER, currentUser)
+                putLong(USER, userId)
             }
         }
     }

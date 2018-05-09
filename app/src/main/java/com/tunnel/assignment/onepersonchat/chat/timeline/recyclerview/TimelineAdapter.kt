@@ -3,17 +3,17 @@ package com.tunnel.assignment.onepersonchat.chat.timeline.recyclerview
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.tunnel.assignment.onepersonchat.R
 import com.tunnel.assignment.onepersonchat.chat.model.orma.Statement
-import com.tunnel.assignment.onepersonchat.chat.model.orma.User
 import com.tunnel.assignment.onepersonchat.databinding.TimelineMyRowBinding
 import com.tunnel.assignment.onepersonchat.databinding.TimelineRowBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
-class TimelineAdapter(var list: ArrayList<Statement>, var user: User) : RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder>() {
+class TimelineAdapter(var list: ArrayList<Statement>, var userId: Long) : RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder>() {
 
     companion object {
         private const val MY_VIEW: Int = 0
@@ -32,7 +32,7 @@ class TimelineAdapter(var list: ArrayList<Statement>, var user: User) : Recycler
     override fun getItemCount(): Int = list.size
 
     override fun getItemViewType(position: Int): Int {
-        return if (list[position].user?.id == user.id) {
+        return if (list[position].userId == userId) {
             Companion.MY_VIEW
         } else {
             Companion.OTHER_VIEW

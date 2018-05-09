@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import com.tunnel.assignment.onepersonchat.R
 import com.tunnel.assignment.onepersonchat.chat.ChatViewModel
 import com.tunnel.assignment.onepersonchat.chat.model.orma.Statement
-import com.tunnel.assignment.onepersonchat.chat.model.orma.User
 import com.tunnel.assignment.onepersonchat.databinding.FragmentEditorBinding
 import java.util.*
 
@@ -17,11 +16,11 @@ class EditorFragment : Fragment() {
 
     private lateinit var binding: FragmentEditorBinding
     private lateinit var chatViewModel: ChatViewModel
-    private lateinit var currentUser: User
+    private var currentUserId: Long = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_editor, container, false)
-        currentUser = arguments?.getSerializable(EditorFragment.USER) as User
+        currentUserId = arguments?.getLong(USER) as Long
 
         val editWatcher = EditWatcher(object : EditWatcher.ChangeListener {
             override fun onChanged(isExist: Boolean) {
@@ -33,7 +32,7 @@ class EditorFragment : Fragment() {
         binding.sendButton.setOnClickListener {
             val editable = binding.editor.text
             val message = editable.toString()
-            val statement = Statement(0, message, Calendar.getInstance().timeInMillis, currentUser)
+            val statement = Statement(0, message, Calendar.getInstance().timeInMillis, currentUserId)
             chatViewModel.sendMessage(statement)
             editable.clear()
         }
@@ -46,9 +45,9 @@ class EditorFragment : Fragment() {
 
     companion object {
         const val USER = "USER"
-        fun createInstance(currentUser: User) = EditorFragment().apply {
+        fun createInstance(userId: Long) = EditorFragment().apply {
             arguments = Bundle().apply {
-                putSerializable(USER, currentUser)
+                putLong(USER, userId)
             }
         }
     }

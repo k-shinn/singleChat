@@ -16,7 +16,7 @@ data class Statement(
         @Setter("dateLong")
         @Column(indexed = true)
         var dateLong: Long,
-        @Setter("currentUser")
+        @Setter("userId")
         @Column(indexed = true)
-        var user: User? = null
+        var userId: Long
 )

@@ -12,7 +12,7 @@ import com.tunnel.assignment.onepersonchat.chat.timeline.TimelineFragment
 class ChatActivity : AppCompatActivity() {
 
     private lateinit var chatViewModel: ChatViewModel
-    private lateinit var currentUser: User
+    private var currentUserId: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,13 +20,13 @@ class ChatActivity : AppCompatActivity() {
 
         // TODO: 前画面でユーザ設定口を作る
         // ユーザ設定がなければ毎回別ユーザを作る
-        currentUser = createUser(User(0, "guestUser"))
+        currentUserId = createUser(User(0, "guestUser"))
 
         chatViewModel = ViewModelProviders.of(this).get(ChatViewModel::class.java)
 
-        val timelineFragment = TimelineFragment.createInstance(currentUser)
+        val timelineFragment = TimelineFragment.createInstance(currentUserId)
         timelineFragment.setViewModel(chatViewModel)
-        val editorFragment = EditorFragment.createInstance(currentUser)
+        val editorFragment = EditorFragment.createInstance(currentUserId)
         editorFragment.setViewModel(chatViewModel)
 
         supportFragmentManager.beginTransaction().apply {
@@ -36,9 +36,8 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
-    private fun createUser(user: User): User {
-        val id = OrmaDB.orma.insertIntoUser(user)
-        return OrmaDB.orma.selectFromUser().idEq(id).get(0)
+    private fun createUser(user: User): Long {
+        return OrmaDB.orma.insertIntoUser(user)
     }
 
 }

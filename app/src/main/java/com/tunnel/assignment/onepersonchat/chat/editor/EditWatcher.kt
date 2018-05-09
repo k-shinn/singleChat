@@ -3,10 +3,17 @@ package com.tunnel.assignment.onepersonchat.chat.editor
 import android.text.Editable
 import android.text.TextWatcher
 
+/**
+ * EditTextの変更を監視する
+ */
 class EditWatcher(private val changeListener: ChangeListener) : TextWatcher {
 
     interface ChangeListener {
-        fun onChanged(isExist: Boolean)
+        /**
+         * Text変更後、Text内容が存在するかを監視するリスナー
+         * @param isTextExist true:テキストが存在する, false:テキストが存在しない
+         */
+        fun onChanged(isTextExist: Boolean)
     }
 
     override fun afterTextChanged(editable: Editable?) {

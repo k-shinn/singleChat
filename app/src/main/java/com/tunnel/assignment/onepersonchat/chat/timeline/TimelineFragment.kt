@@ -10,22 +10,24 @@ import android.view.View
 import android.view.ViewGroup
 import com.tunnel.assignment.onepersonchat.R
 import com.tunnel.assignment.onepersonchat.chat.ChatViewModel
-import com.tunnel.assignment.onepersonchat.chat.model.orma.Statement
 import com.tunnel.assignment.onepersonchat.chat.timeline.recyclerview.TimelineAdapter
 import com.tunnel.assignment.onepersonchat.databinding.FragmentTimelineBinding
-import java.util.*
 
+/**
+ * チャットのタイムラインを表示するFragment
+ *
+ * Viewの生成とDataの設定、橋渡しを行う
+ * View(RecyclerView)の見え方はViewに任せる
+ */
 class TimelineFragment : Fragment() {
 
     private lateinit var binding: FragmentTimelineBinding
     private lateinit var chatViewModel: ChatViewModel
     private lateinit var timelineAdapter: TimelineAdapter
-    private var list: ArrayList<Statement> = ArrayList()
     private var currentUserId: Long = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_timeline, container, false)
-        currentUserId = arguments?.getLong(USER) as Long
         return binding.root
     }
 
@@ -34,19 +36,21 @@ class TimelineFragment : Fragment() {
         initRecyclerView()
     }
 
+    /**
+     * RecyclerViewの初期化
+     */
     private fun initRecyclerView() {
-        timelineAdapter = TimelineAdapter(list, currentUserId)
+        timelineAdapter = TimelineAdapter(currentUserId)
         binding.timeline.setHasFixedSize(true)
         binding.timeline.layoutManager = LinearLayoutManager(context)
         binding.timeline.adapter = timelineAdapter
 
-        val savedData = this.chatViewModel.getSavedData()
+        // 初期Dataとして保存済のDataを取得する
+        val savedData = chatViewModel.getSavedData()
         timelineAdapter.list.addAll(savedData)
-    }
 
-    fun setViewModel(chatViewModel: ChatViewModel) {
-        this.chatViewModel = chatViewModel
-        this.chatViewModel.getStatements().observe(this, Observer { it ->
+        // Dataの更新を監視
+        chatViewModel.getLiveData().observe(this, Observer { it ->
             it?.let {
                 timelineAdapter.list.add(it)
                 timelineAdapter.notifyDataSetChanged()
@@ -55,11 +59,9 @@ class TimelineFragment : Fragment() {
     }
 
     companion object {
-        const val USER = "USER"
-        fun createInstance(userId: Long) = TimelineFragment().apply {
-            arguments = Bundle().apply {
-                putLong(USER, userId)
-            }
+        fun createInstance(userId: Long, viewModel: ChatViewModel) = TimelineFragment().apply {
+            currentUserId = userId
+            chatViewModel = viewModel
         }
     }
 }

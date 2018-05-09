@@ -15,13 +15,12 @@ import java.util.*
 
 class EditorFragment : Fragment() {
 
-    lateinit var chatViewModel: ChatViewModel
-    lateinit var binding: FragmentEditorBinding
-    lateinit var currentUser: User
+    private lateinit var binding: FragmentEditorBinding
+    private lateinit var chatViewModel: ChatViewModel
+    private lateinit var currentUser: User
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_editor, container, false)
-
         currentUser = arguments?.getSerializable(EditorFragment.USER) as User
 
         val editWatcher = EditWatcher(object : EditWatcher.ChangeListener {
@@ -29,6 +28,7 @@ class EditorFragment : Fragment() {
                 binding.sendButton.isEnabled = isExist
             }
         })
+
         binding.editor.addTextChangedListener(editWatcher)
         binding.sendButton.setOnClickListener {
             val editable = binding.editor.text
@@ -37,7 +37,6 @@ class EditorFragment : Fragment() {
             chatViewModel.sendMessage(statement)
             editable.clear()
         }
-
         return binding.root
     }
 

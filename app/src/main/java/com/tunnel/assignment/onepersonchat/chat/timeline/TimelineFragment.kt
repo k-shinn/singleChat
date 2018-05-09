@@ -18,33 +18,24 @@ import java.util.*
 
 class TimelineFragment : Fragment() {
 
-    lateinit var binding: FragmentTimelineBinding
-
-    lateinit var chatViewModel: ChatViewModel
-
-    lateinit var timelineAdapter: TimelineAdapter
-
+    private lateinit var binding: FragmentTimelineBinding
+    private lateinit var chatViewModel: ChatViewModel
     private lateinit var currentUser: User
-
-    var list: ArrayList<Statement> = ArrayList()
+    private lateinit var timelineAdapter: TimelineAdapter
+    private var list: ArrayList<Statement> = ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_timeline, container, false)
-
         currentUser = arguments?.getSerializable(USER) as User
-
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         initRecyclerView()
     }
 
-
     private fun initRecyclerView() {
-//        list.add(Statement("first", Calendar.getInstance(), User("test", "test")))
         timelineAdapter = TimelineAdapter(list, currentUser)
         binding.timeline.setHasFixedSize(true)
         binding.timeline.layoutManager = LinearLayoutManager(context)

@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.button.setOnClickListener({ view ->
-//            val intent = Intent(view.context, TimeLineActivity::class.java)
             val intent = Intent(view.context, ChatActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
             view.context.startActivity(intent)

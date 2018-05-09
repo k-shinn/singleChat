@@ -11,7 +11,4 @@ object OrmaDB {
             .writeOnMainThread(AccessThreadConstraint.NONE)
             .build()
 
-//    fun insertStatement(statement: Statement){
-//        orma.insertIntoStatement(statement)
-//    }
 }

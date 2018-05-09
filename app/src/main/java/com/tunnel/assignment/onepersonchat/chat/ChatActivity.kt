@@ -5,12 +5,11 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.tunnel.assignment.onepersonchat.R
 import com.tunnel.assignment.onepersonchat.chat.editor.EditorFragment
-import com.tunnel.assignment.onepersonchat.chat.editor.EditorNavigator
 import com.tunnel.assignment.onepersonchat.chat.model.orma.OrmaDB
 import com.tunnel.assignment.onepersonchat.chat.model.orma.User
 import com.tunnel.assignment.onepersonchat.chat.timeline.TimelineFragment
 
-class ChatActivity : AppCompatActivity(), EditorNavigator {
+class ChatActivity : AppCompatActivity() {
 
     private lateinit var chatViewModel: ChatViewModel
     private lateinit var currentUser: User
@@ -19,22 +18,22 @@ class ChatActivity : AppCompatActivity(), EditorNavigator {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
-        // ユーザ設定がなければゲスト登録
-//        val currentUser = intent.getSerializableExtra("currentUser")
-        // ユーザ登録口を作るまで毎回別ユーザを作っておく
-        currentUser = createUser(User(0, "instantUser"))
+        // TODO: 前画面でユーザ設定口を作る
+        // ユーザ設定がなければ毎回別ユーザを作る
+        currentUser = createUser(User(0, "guestUser"))
 
         chatViewModel = ViewModelProviders.of(this).get(ChatViewModel::class.java)
-        chatViewModel.setNavigator(this)
 
-        val transaction = supportFragmentManager.beginTransaction()
         val timelineFragment = TimelineFragment.createInstance(currentUser)
         timelineFragment.setViewModel(chatViewModel)
         val editorFragment = EditorFragment.createInstance(currentUser)
         editorFragment.setViewModel(chatViewModel)
-        transaction.replace(R.id.timeline, timelineFragment)
-        transaction.replace(R.id.editor, editorFragment)
-        transaction.commit()
+
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.timeline, timelineFragment)
+            replace(R.id.editor, editorFragment)
+            commit()
+        }
     }
 
     private fun createUser(user: User): User {
@@ -42,7 +41,4 @@ class ChatActivity : AppCompatActivity(), EditorNavigator {
         return OrmaDB.orma.selectFromUser().idEq(id).get(0)
     }
 
-    override fun sendMessage(message: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 }

@@ -27,13 +27,6 @@ class TimelineAdapter(var list: ArrayList<Statement>, var user: User) : Recycler
             DataBindingUtil.inflate<ViewDataBinding>(LayoutInflater.from(parent.context), R.layout.timeline_row, parent, false)
         }
         return TimelineViewHolder(viewDataBinding)
-
-//        val binding = if (viewType == MY_VIEW) {
-//            TimelineMyRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-//        } else {
-//            TimelineRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-//        }
-//        return ViewHolder(binding)
     }
 
     override fun getItemCount(): Int = list.size
@@ -64,12 +57,6 @@ class TimelineAdapter(var list: ArrayList<Statement>, var user: User) : Recycler
         val dateFormat = SimpleDateFormat("HH:mm", Locale.JAPAN)
         return dateFormat.format(Date(dateLong))
     }
-
-//    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        holder.binding.text.text = list[position].message
-//    }
-//
-//    class ViewHolder(var binding: TimelineRowBinding) : RecyclerView.ViewHolder(binding.root)
 
     class TimelineViewHolder(var binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root)
 

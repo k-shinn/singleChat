@@ -27,9 +27,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/send_button_desc"
-            app:layout_constraintBottom_toBottomOf="@id/inputText"
+            app:layout_constraintBottom_toBottomOf="@id/editor"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/inputText"
+            app:layout_constraintTop_toTopOf="@id/editor"
             app:srcCompat="@android:drawable/ic_menu_send" />
 
     </android.support.constraint.ConstraintLayout>

@@ -33,6 +33,7 @@ class ChatActivity : AppCompatActivity() {
         checkInject()
 
 
+
         chatViewModel = ViewModelProviders.of(this).get(ChatViewModel::class.java)
         // TODO: 前画面などでユーザ設定口を作る
         // ユーザ設定がなければ毎回別ユーザを作る
@@ -56,7 +57,6 @@ class ChatActivity : AppCompatActivity() {
         for (statement in list) {
             Log.d("injectTest", statement.message)
         }
-
     }
 
 }

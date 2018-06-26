@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModel
 import com.tunnel.assignment.onepersonchat.chat.model.ChatDataRepository
 import com.tunnel.assignment.onepersonchat.chat.model.orma.Statement
 import com.tunnel.assignment.onepersonchat.chat.model.orma.User
+import javax.inject.Inject
 
 /**
  * チャット画面用ViewModel
@@ -13,7 +14,7 @@ import com.tunnel.assignment.onepersonchat.chat.model.orma.User
  * Dataの全般的な管理を担う
  * FragmentからのData更新、取得などはすべてここを通す
  */
-class ChatViewModel : ViewModel() {
+class ChatViewModel @Inject constructor(private val chatDataRepository: ChatDataRepository) : ViewModel() {
 
     private val statements: MutableLiveData<Statement> = MutableLiveData()
 
@@ -36,7 +37,7 @@ class ChatViewModel : ViewModel() {
     fun postMessage(message: String, timeInMillis: Long, userId: Long) {
         val statement = Statement(0, message, timeInMillis, userId)
         statements.postValue(statement)
-        ChatDataRepository.postMessage(statement)
+        chatDataRepository.postMessage(statement)
     }
 
     /**
@@ -45,7 +46,7 @@ class ChatViewModel : ViewModel() {
      * @return 全Statementのリスト
      */
     fun getSavedData(): List<Statement> {
-        return ChatDataRepository.getSavedData()
+        return chatDataRepository.getSavedData()
     }
 
     /**
@@ -55,7 +56,7 @@ class ChatViewModel : ViewModel() {
      * @return 作成されたユーザID
      */
     fun createUser(name: String): Long {
-        return ChatDataRepository.createUser(User(0, name))
+        return chatDataRepository.createUser(User(0, name))
     }
 
 }

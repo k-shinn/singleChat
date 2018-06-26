@@ -1,20 +1,19 @@
 package com.tunnel.assignment.onepersonchat.chat.model
 
-import com.tunnel.assignment.onepersonchat.chat.model.orma.OrmaDB
 import com.tunnel.assignment.onepersonchat.chat.model.orma.OrmaDatabase
 import com.tunnel.assignment.onepersonchat.chat.model.orma.Statement
 import com.tunnel.assignment.onepersonchat.chat.model.orma.User
+import javax.inject.Inject
 
 /**
  * チャットデータのRepositoryクラス
  *
  * データの保存方法をActivityから隠蔽し、DBやキャッシュを存在を意識させない
  */
-object ChatDataRepository {
+class ChatDataRepository
+@Inject constructor(private val ormaDatabase: OrmaDatabase) {
 
     // TODO: DBの他にキャッシュを実装
-
-    private val orma: OrmaDatabase = OrmaDB.orma
 
     /**
      * メッセージの保存
@@ -22,7 +21,7 @@ object ChatDataRepository {
      * @param statement 保存するメッセージ情報
      */
     fun postMessage(statement: Statement) {
-        orma.insertIntoStatement(statement)
+        ormaDatabase.insertIntoStatement(statement)
     }
 
     /**
@@ -31,7 +30,7 @@ object ChatDataRepository {
      * @return 全Statementのリスト
      */
     fun getSavedData(): List<Statement> {
-        val relation = orma.relationOfStatement().orderByDateLongAsc()
+        val relation = ormaDatabase.relationOfStatement().orderByDateLongAsc()
         return relation.toList()
     }
 
@@ -42,6 +41,6 @@ object ChatDataRepository {
      * @return 作成されたユーザID
      */
     fun createUser(user: User): Long {
-        return orma.insertIntoUser(user)
+        return ormaDatabase.insertIntoUser(user)
     }
 }

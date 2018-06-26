@@ -7,8 +7,8 @@ import javax.inject.Singleton
 
 
 @Singleton
-@Component(modules = arrayOf(
-        AppModule::class))
+@Component(modules = [AppModule::class,
+    ViewModelModule::class])
 interface AppComponent {
     fun inject(activity: ChatActivity)
 

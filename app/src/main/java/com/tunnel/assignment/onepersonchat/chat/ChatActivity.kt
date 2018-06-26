@@ -1,5 +1,6 @@
 package com.tunnel.assignment.onepersonchat.chat
 
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -24,6 +25,9 @@ class ChatActivity : AppCompatActivity() {
     @Inject
     lateinit var ormaDatabase: OrmaDatabase
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
@@ -32,7 +36,7 @@ class ChatActivity : AppCompatActivity() {
         (application as App).getComponent().inject(this)
         checkInject()
 
-        chatViewModel = ViewModelProviders.of(this).get(ChatViewModel::class.java)
+        chatViewModel = ViewModelProviders.of(this, viewModelFactory).get(ChatViewModel::class.java)
         // TODO: 前画面などでユーザ設定口を作る
         // ユーザ設定がなければ毎回別ユーザを作る
         currentUserId = chatViewModel.createUser("guestUser")

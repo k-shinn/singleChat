@@ -13,7 +13,6 @@ import javax.inject.Singleton
     ViewModelModule::class])
 interface AppComponent {
     fun inject(mainActivity: MainActivity)
-//    fun inject(chatActivity: ChatActivity)
     fun inject(timelineFragment: TimelineFragment)
     fun inject(editorFragment: EditorFragment)
 }

@@ -42,4 +42,15 @@ class ChatDataRepository
     fun createUser(user: User): Long {
         return ormaDatabase.insertIntoUser(user)
     }
+
+    fun getUser(id: Long): User? {
+        val relation = ormaDatabase.relationOfUser().orderByIdAsc()
+        for (user in relation) {
+            if (user.id == id) {
+                return user
+            }
+        }
+        return null
+    }
+
 }

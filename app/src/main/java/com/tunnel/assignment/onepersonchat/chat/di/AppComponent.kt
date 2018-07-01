@@ -1,5 +1,6 @@
 package com.tunnel.assignment.onepersonchat.chat.di
 
+import com.tunnel.assignment.onepersonchat.MainActivity
 import com.tunnel.assignment.onepersonchat.chat.ChatActivity
 import com.tunnel.assignment.onepersonchat.chat.editor.EditorFragment
 import com.tunnel.assignment.onepersonchat.chat.timeline.TimelineFragment
@@ -11,8 +12,8 @@ import javax.inject.Singleton
 @Component(modules = [AppModule::class,
     ViewModelModule::class])
 interface AppComponent {
-    fun inject(activity: ChatActivity)
-    fun inject(fragment: TimelineFragment)
-    fun inject(fragment: EditorFragment)
-
+    fun inject(mainActivity: MainActivity)
+//    fun inject(chatActivity: ChatActivity)
+    fun inject(timelineFragment: TimelineFragment)
+    fun inject(editorFragment: EditorFragment)
 }

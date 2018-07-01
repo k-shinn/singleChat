@@ -29,6 +29,7 @@ class EditorFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        currentUserId = arguments?.getLong(EXTRA_USER_ID, 0) ?: 0
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_editor, container, false)
         return binding.root
     }
@@ -58,8 +59,14 @@ class EditorFragment : Fragment() {
     }
 
     companion object {
-        fun createInstance(userId: Long) = EditorFragment().apply {
-            currentUserId = userId
+        const val EXTRA_USER_ID = "userId"
+        fun createInstance(userId: Long): EditorFragment {
+            val bundle = Bundle().apply {
+                putLong(EXTRA_USER_ID, userId)
+            }
+            return EditorFragment().apply {
+                arguments = bundle
+            }
         }
     }
 }

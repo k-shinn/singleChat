@@ -26,13 +26,13 @@ import javax.inject.Inject
 class TimelineFragment : Fragment() {
 
     private lateinit var binding: FragmentTimelineBinding
-
     private var currentUserId: Long = 0
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        currentUserId = arguments?.getLong(EXTRA_USER_ID, 0) ?: 0
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_timeline, container, false)
         return binding.root
     }
@@ -68,8 +68,14 @@ class TimelineFragment : Fragment() {
     }
 
     companion object {
-        fun createInstance(userId: Long) = TimelineFragment().apply {
-            currentUserId = userId
+        const val EXTRA_USER_ID = "userId"
+        fun createInstance(userId: Long): TimelineFragment {
+            val bundle = Bundle().apply {
+                putLong(EXTRA_USER_ID, userId)
+            }
+            return TimelineFragment().apply {
+                arguments = bundle
+            }
         }
     }
 }

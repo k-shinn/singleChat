@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
     private fun createUser(viewModel: MainViewModel) {
         viewModel.getLiveData().observe(this, Observer { it ->
             if (it != null) {
+                Toast.makeText(this, "guestUser created", Toast.LENGTH_LONG)
                 startChat(it)
             } else {
                 Toast.makeText(this, "Fail to createUser", Toast.LENGTH_LONG)

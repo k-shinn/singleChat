@@ -18,14 +18,14 @@ import javax.inject.Singleton
 @Singleton
 class ChatViewModel @Inject constructor(private val chatDataRepository: ChatDataRepository) : ViewModel() {
 
-    private val statements: MutableLiveData<Statement> = MutableLiveData()
+    private val liveData: MutableLiveData<Statement> = MutableLiveData()
 
     /**
      * LiveDataの取得
      *
      * @return メッセージの更新を通知するLiveData
      */
-    fun getLiveData(): LiveData<Statement> = statements
+    fun getLiveData(): LiveData<Statement> = liveData
 
     /**
      * メッセージ送信
@@ -38,7 +38,7 @@ class ChatViewModel @Inject constructor(private val chatDataRepository: ChatData
      */
     fun postMessage(message: String, timeInMillis: Long, userId: Long) {
         val statement = Statement(0, message, timeInMillis, userId)
-        statements.postValue(statement)
+        liveData.postValue(statement)
         chatDataRepository.postMessage(statement)
     }
 

@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.tunnel.assignment.onepersonchat.App
 import com.tunnel.assignment.onepersonchat.R
 import com.tunnel.assignment.onepersonchat.chat.editor.EditorFragment
 import com.tunnel.assignment.onepersonchat.chat.model.orma.User
@@ -21,15 +20,11 @@ class ChatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
-//        val user = intent.getParcelableExtra<User>(USER_DATA)
-        val user = intent.getLongExtra(USER_DATA, 0)
+        val user = intent.getParcelableExtra<User>(USER_DATA)
 
-        // Inject
-//        (application as App).getComponent().inject(this)
-
-        // fragment、ViewModel設定
-        val timelineFragment = TimelineFragment.createInstance(user)
-        val editorFragment = EditorFragment.createInstance(user)
+        // fragment生成
+        val timelineFragment = TimelineFragment.createInstance(user.id)
+        val editorFragment = EditorFragment.createInstance(user.id)
 
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.timeline, timelineFragment)
@@ -42,8 +37,7 @@ class ChatActivity : AppCompatActivity() {
         const val USER_DATA = "userData"
         fun createIntent(context: Context, user: User): Intent {
             return Intent(context, ChatActivity::class.java).apply {
-//                putExtra(USER_DATA, user)
-                putExtra(USER_DATA, user.id)
+                putExtra(USER_DATA, user)
             }
         }
     }

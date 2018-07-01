@@ -8,12 +8,11 @@ import javax.inject.Inject
 /**
  * チャットデータのRepositoryクラス
  *
- * データの保存方法をActivityから隠蔽し、DBやキャッシュを存在を意識させない
+ * データの保存方法をActivityから隠蔽し、DB等の存在を意識させない
+ * -> FirebaseとかローカルDB以外に保存する時にここ以降で分岐する
  */
 class ChatDataRepository
 @Inject constructor(private val ormaDatabase: OrmaDatabase) {
-
-    // TODO: DBの他にキャッシュを実装
 
     /**
      * メッセージの保存

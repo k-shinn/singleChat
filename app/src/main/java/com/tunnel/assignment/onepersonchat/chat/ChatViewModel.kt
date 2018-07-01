@@ -7,6 +7,7 @@ import com.tunnel.assignment.onepersonchat.chat.model.ChatDataRepository
 import com.tunnel.assignment.onepersonchat.chat.model.orma.Statement
 import com.tunnel.assignment.onepersonchat.chat.model.orma.User
 import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * チャット画面用ViewModel
@@ -14,6 +15,7 @@ import javax.inject.Inject
  * Dataの全般的な管理を担う
  * FragmentからのData更新、取得などはすべてここを通す
  */
+@Singleton
 class ChatViewModel @Inject constructor(private val chatDataRepository: ChatDataRepository) : ViewModel() {
 
     private val statements: MutableLiveData<Statement> = MutableLiveData()

@@ -2,6 +2,7 @@ package com.tunnel.assignment.onepersonchat.chat.di
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
+import com.tunnel.assignment.onepersonchat.MainViewModel
 import com.tunnel.assignment.onepersonchat.chat.ChatViewModel
 import dagger.Binds
 import dagger.MapKey
@@ -33,7 +34,12 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(ChatViewModel::class)
-    internal abstract fun postChatViewModel(viewModel: ChatViewModel): ViewModel
+    internal abstract fun postChatViewModel(chatViewModel: ChatViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MainViewModel::class)
+    internal abstract fun postMainViewModel(mainViewModel: MainViewModel): ViewModel
 
     //Add more ViewModels here
 }

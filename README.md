@@ -9,4 +9,6 @@
 - OrmaDatabase
 - constraintlayout
 - DataBinding
-- Dagger2 <- new
+- Dagger2
+
+- github上でIssueとかPRとか管理してみるテスト <- new

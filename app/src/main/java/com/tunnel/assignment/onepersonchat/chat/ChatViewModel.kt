@@ -20,6 +20,11 @@ class ChatViewModel @Inject constructor(private val chatDataRepository: ChatData
 
     private val liveData: MutableLiveData<Statement> = MutableLiveData()
 
+    override fun onCleared() {
+        // 開き直した時に前のポストが通知される事があるため初期化
+        liveData.postValue(null)
+    }
+
     /**
      * LiveDataの取得
      *

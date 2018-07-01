@@ -14,6 +14,11 @@ import com.tunnel.assignment.onepersonchat.chat.model.orma.User
 import com.tunnel.assignment.onepersonchat.databinding.ActivityMainBinding
 import javax.inject.Inject
 
+/**
+ * 起動画面
+ *
+ * ユーザ作成（予定）
+ */
 class MainActivity : AppCompatActivity() {
 
     @Inject

@@ -6,7 +6,7 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.tunnel.assignment.onepersonchat"
+        applicationId "com.kei.training.onepersonchat"
         minSdkVersion 15
         targetSdkVersion 27
         versionCode 1

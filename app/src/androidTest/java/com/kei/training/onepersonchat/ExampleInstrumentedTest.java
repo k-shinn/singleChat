@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.tunnel.assignment.onepersonchat", appContext.getPackageName());
+        assertEquals("com.kei.training.onepersonchat", appContext.getPackageName());
     }
 }

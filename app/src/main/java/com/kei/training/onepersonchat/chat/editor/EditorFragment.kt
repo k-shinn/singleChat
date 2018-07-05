@@ -2,16 +2,17 @@ package com.kei.training.onepersonchat.chat.editor
 
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.kei.training.onepersonchat.App
 import com.kei.training.onepersonchat.R
 import com.kei.training.onepersonchat.chat.ChatViewModel
 import com.kei.training.onepersonchat.databinding.FragmentEditorBinding
+import dagger.android.support.AndroidSupportInjection
 import java.util.*
 import javax.inject.Inject
 
@@ -33,9 +34,15 @@ class EditorFragment : Fragment() {
         return binding.root
     }
 
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        AndroidSupportInjection.inject(this)
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        (activity?.application as App).getComponent().inject(this)
+//        (activity?.application as App).getComponent().inject(this)
+
         val viewModel = ViewModelProviders.of(this, viewModelFactory).get(ChatViewModel::class.java)
         initEditor(viewModel)
     }

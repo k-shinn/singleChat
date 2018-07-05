@@ -1,18 +1,16 @@
 package com.kei.training.onepersonchat.chat.di
 
-import com.kei.training.onepersonchat.MainActivity
-import com.kei.training.onepersonchat.chat.ChatActivity
-import com.kei.training.onepersonchat.chat.editor.EditorFragment
-import com.kei.training.onepersonchat.chat.timeline.TimelineFragment
+import com.kei.training.onepersonchat.App
 import dagger.Component
+import dagger.android.AndroidInjector
 import javax.inject.Singleton
 
-
 @Singleton
-@Component(modules = [AppModule::class,
+@Component(modules = [
+    AppModule::class,
+    ActivityModule::class,
     ViewModelModule::class])
-interface AppComponent {
-    fun inject(mainActivity: MainActivity)
-    fun inject(timelineFragment: TimelineFragment)
-    fun inject(editorFragment: EditorFragment)
+interface AppComponent : AndroidInjector<App> {
+    @Component.Builder
+    abstract class Builder : AndroidInjector.Builder<App>()
 }

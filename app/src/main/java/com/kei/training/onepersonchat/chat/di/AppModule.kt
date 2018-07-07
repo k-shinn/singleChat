@@ -8,13 +8,13 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class AppModule {
+class AppModule(private val name: String) {
 
     @Provides
     @Singleton
     fun provideOrmaDatabase(app: App): OrmaDatabase {
         return OrmaDatabase.builder(app)
-                .name("Orma_Database")
+                .name(name)
                 .readOnMainThread(AccessThreadConstraint.NONE)
                 .writeOnMainThread(AccessThreadConstraint.NONE)
                 .build()

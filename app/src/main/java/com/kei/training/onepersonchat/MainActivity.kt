@@ -7,12 +7,11 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.kei.training.onepersonchat.chat.ChatActivity
 import com.kei.training.onepersonchat.chat.model.orma.User
 import com.kei.training.onepersonchat.databinding.ActivityMainBinding
-import dagger.android.AndroidInjection
+import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
 /**
@@ -20,7 +19,7 @@ import javax.inject.Inject
  *
  * ユーザ作成（予定）
  */
-class MainActivity : AppCompatActivity() {
+class MainActivity : DaggerAppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -34,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         // Inject
 //        (application as App).getComponent().inject(this)
-        AndroidInjection.inject(this)
+//        AndroidInjection.inject(this)
 
         val viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
 

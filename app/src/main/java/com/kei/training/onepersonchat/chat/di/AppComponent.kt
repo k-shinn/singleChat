@@ -3,10 +3,12 @@ package com.kei.training.onepersonchat.chat.di
 import com.kei.training.onepersonchat.App
 import dagger.Component
 import dagger.android.AndroidInjector
+import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [
+    AndroidSupportInjectionModule::class,
     AppModule::class,
     ActivityModule::class,
     ViewModelModule::class])

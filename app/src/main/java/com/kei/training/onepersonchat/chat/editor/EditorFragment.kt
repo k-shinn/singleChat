@@ -2,17 +2,15 @@ package com.kei.training.onepersonchat.chat.editor
 
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kei.training.onepersonchat.R
 import com.kei.training.onepersonchat.chat.ChatViewModel
 import com.kei.training.onepersonchat.databinding.FragmentEditorBinding
-import dagger.android.support.AndroidSupportInjection
+import dagger.android.support.DaggerFragment
 import java.util.*
 import javax.inject.Inject
 
@@ -21,7 +19,7 @@ import javax.inject.Inject
  *
  * Viewの生成とDataの設定、橋渡しを行う
  */
-class EditorFragment : Fragment() {
+class EditorFragment : DaggerFragment() {
 
     private lateinit var binding: FragmentEditorBinding
     private var currentUserId: Long = 0
@@ -34,10 +32,10 @@ class EditorFragment : Fragment() {
         return binding.root
     }
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        AndroidSupportInjection.inject(this)
-    }
+//    override fun onAttach(context: Context?) {
+//        super.onAttach(context)
+//        AndroidSupportInjection.inject(this)
+//    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

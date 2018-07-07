@@ -3,10 +3,8 @@ package com.kei.training.onepersonchat.chat.timeline
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +13,7 @@ import com.kei.training.onepersonchat.R
 import com.kei.training.onepersonchat.chat.ChatViewModel
 import com.kei.training.onepersonchat.chat.timeline.recyclerview.TimelineAdapter
 import com.kei.training.onepersonchat.databinding.FragmentTimelineBinding
-import dagger.android.support.AndroidSupportInjection
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
 /**
@@ -24,7 +22,7 @@ import javax.inject.Inject
  * Viewの生成とDataの設定、橋渡しを行う
  * View(RecyclerView)の見え方はViewに任せる
  */
-class TimelineFragment : Fragment() {
+class TimelineFragment : DaggerFragment() {
 
     private lateinit var binding: FragmentTimelineBinding
 
@@ -38,10 +36,10 @@ class TimelineFragment : Fragment() {
         return binding.root
     }
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        AndroidSupportInjection.inject(this)
-    }
+//    override fun onAttach(context: Context?) {
+//        super.onAttach(context)
+//        AndroidSupportInjection.inject(this)
+//    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

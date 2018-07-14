@@ -12,6 +12,7 @@ import android.widget.Toast
 import com.kei.training.onepersonchat.chat.ChatActivity
 import com.kei.training.onepersonchat.chat.model.orma.User
 import com.kei.training.onepersonchat.databinding.ActivityMainBinding
+import dagger.android.AndroidInjection
 import javax.inject.Inject
 
 /**
@@ -32,7 +33,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         // Inject
-        (application as App).getComponent().inject(this)
+//        (application as App).getComponent().inject(this)
+        AndroidInjection.inject(this)
 
         val viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
 

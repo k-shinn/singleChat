@@ -3,6 +3,7 @@ package com.kei.training.onepersonchat.chat.timeline
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -10,11 +11,11 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.kei.training.onepersonchat.App
 import com.kei.training.onepersonchat.R
 import com.kei.training.onepersonchat.chat.ChatViewModel
 import com.kei.training.onepersonchat.chat.timeline.recyclerview.TimelineAdapter
 import com.kei.training.onepersonchat.databinding.FragmentTimelineBinding
+import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
 /**
@@ -37,9 +38,15 @@ class TimelineFragment : Fragment() {
         return binding.root
     }
 
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        AndroidSupportInjection.inject(this)
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        (activity?.application as App).getComponent().inject(this)
+//        (activity?.application as App).getComponent().inject(this)
+
         val viewModel = ViewModelProviders.of(this, viewModelFactory).get(ChatViewModel::class.java)
 
         initRecyclerView(viewModel)

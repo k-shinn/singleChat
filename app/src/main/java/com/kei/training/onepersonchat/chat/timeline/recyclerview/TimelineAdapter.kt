@@ -7,8 +7,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.kei.training.onepersonchat.R
 import com.kei.training.onepersonchat.chat.model.orma.Statement
-import com.kei.training.onepersonchat.databinding.TimelineCurrentUserRowBinding
-import com.kei.training.onepersonchat.databinding.TimelineOtherRowBinding
+import com.kei.training.onepersonchat.databinding.TimelineRowBinding
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -30,9 +29,9 @@ class TimelineAdapter(private val currentUserId: Long) : RecyclerView.Adapter<Ti
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TimelineViewHolder {
         val viewDataBinding = if (viewType == Companion.CURRENT_USER_VIEW) {
-            DataBindingUtil.inflate<ViewDataBinding>(LayoutInflater.from(parent.context), R.layout.timeline_current_user_row, parent, false)
+            DataBindingUtil.inflate<ViewDataBinding>(LayoutInflater.from(parent.context), R.layout.timeline_row, parent, false)
         } else {
-            DataBindingUtil.inflate<ViewDataBinding>(LayoutInflater.from(parent.context), R.layout.timeline_other_row, parent, false)
+            DataBindingUtil.inflate<ViewDataBinding>(LayoutInflater.from(parent.context), R.layout.timeline_row, parent, false)
         }
         return TimelineViewHolder(viewDataBinding)
     }
@@ -48,16 +47,15 @@ class TimelineAdapter(private val currentUserId: Long) : RecyclerView.Adapter<Ti
     }
 
     override fun onBindViewHolder(holder: TimelineViewHolder, position: Int) {
+        val rowBinding = holder.binding as TimelineRowBinding
+        val date = convertDate(list[position].dateLong)
+        rowBinding.message.text = list[position].message
+        rowBinding.time.text = date
         if (holder.itemViewType == Companion.CURRENT_USER_VIEW) {
-            val rowBinding = holder.binding as TimelineCurrentUserRowBinding
-            val date = convertDate(list[position].dateLong)
-            rowBinding.date.text = date
-            rowBinding.message.text = list[position].message
+            val message = list[position].userId.toString() + " (you)"
+            rowBinding.userName.text = message
         } else {
-            val rowBinding = holder.binding as TimelineOtherRowBinding
-            val date = convertDate(list[position].dateLong)
-            rowBinding.date.text = date
-            rowBinding.message.text = list[position].message
+            rowBinding.userName.text = list[position].userId.toString()
         }
     }
 

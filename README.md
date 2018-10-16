@@ -12,3 +12,5 @@
 - Dagger2
 
 - github上でIssueとかPRとか管理してみるテスト <- new
+
+- SSH通信PUSHテスト
